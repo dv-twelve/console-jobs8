@@ -1,0 +1,59 @@
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace ConsoleApp8_c_1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                string enteredData = UserInput("Введите строку: ", "ошибка");
+                int length = int.Parse(UserInput("Введите длинну слова: ", "ошибка ввода"));
+
+
+                StringBuilder data = new StringBuilder();
+
+                foreach (var word in Regex.Matches(enteredData, String.Concat(@"\b\w", "{", length, @"}\b")))
+                {
+                    data.Append($"{word} ");
+                }
+                if (data.Length != 0)
+                {
+                    Console.WriteLine(data.ToString());
+                }
+                else
+                {
+                    Console.WriteLine("Нет слов заданной длинны");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка ввода");
+            }
+            Console.ReadKey();
+        }
+        static string UserInput(string message, string failMessage)
+        {
+            string enteredData;
+            while (true)
+            {
+                Console.Write(message);
+                enteredData = Console.ReadLine();
+                if (enteredData != String.Empty)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.Write(failMessage);
+                }
+                
+            }
+            return enteredData;
+        }
+        
+    }
+}
